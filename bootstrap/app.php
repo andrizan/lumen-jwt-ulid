@@ -58,9 +58,9 @@ $app->singleton(
 | the default version. You may register other files below as needed.
 |
 */
-
+$app->instance('path.config', app()->basePath() . DIRECTORY_SEPARATOR . 'config');
 $app->configure('app');
-
+$app->configure('scout');
 /*
 |--------------------------------------------------------------------------
 | Register Middleware
@@ -91,10 +91,11 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\AuthServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AuthServiceProvider::class);
+$app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
+$app->register(Laravel\Scout\ScoutServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

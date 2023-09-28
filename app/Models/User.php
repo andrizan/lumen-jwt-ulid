@@ -10,10 +10,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Scout\Searchable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract, JWTSubject
 {
     use Authenticatable, Authorizable, HasFactory, HasUlids;
+    use Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -53,5 +55,13 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function toSearchableArray(): array
+    {
+        return [
+            'name' => $this->name,
+            'email' => $this->email,
+        ];
     }
 }
